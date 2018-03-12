@@ -8,6 +8,9 @@ public class DLDHDTList<E> extends AbstractDLList<E> {
 	
 	public DLDHDTList() { 
 		// ADD CODE HERE to generate empty linked list of this type 
+		header = new DNode<E>(null, null, null);
+		trailer = new DNode<E>(null, header, null);
+		header.setNext(trailer);
 	}
 	
 	public void addFirstNode(Node<E> nuevo) {
@@ -37,6 +40,15 @@ public class DLDHDTList<E> extends AbstractDLList<E> {
 
 	public void addNodeBefore(Node<E> target, Node<E> nuevo) {
 		// ADD CODE HERE
+		DNode<E> dnuevo = (DNode<E>) nuevo; 
+		DNode<E> nAfter = (DNode<E>) target; 
+		DNode<E> nBefore = nAfter.getPrev(); 
+		
+		nBefore.setNext(dnuevo);
+		nAfter.setPrev(dnuevo);
+		dnuevo.setPrev(nBefore);
+		dnuevo.setNext(nAfter);
+		length++; 
 	}
 
 	public Node<E> createNewNode() {
@@ -58,13 +70,20 @@ public class DLDHDTList<E> extends AbstractDLList<E> {
 	public Node<E> getNodeAfter(Node<E> target)
 			throws NoSuchElementException {
 		// ADD CODE HERE AND MODIFY RETURN ACCORDINGLY
-		return null; 
+		DNode<E> aNode = ((DNode<E>) target).getNext();
+		if(aNode == null)
+			throw new NoSuchElementException("getNodeAfter(...) : target is the last node."); 
+		else
+			return aNode; 
 	}
 
 	public Node<E> getNodeBefore(Node<E> target)
 			throws NoSuchElementException {
 		// ADD CODE HERE AND MODIFY RETURN ACCORDINGLY
-		return null; 
+		if(target == header)
+			throw new NoSuchElementException("getNodeBefore(...) : target is the first node."); 
+		else
+			return ((DNode<E>) target).getPrev(); 
 	}
 
 	public int length() {
@@ -73,6 +92,14 @@ public class DLDHDTList<E> extends AbstractDLList<E> {
 
 	public void removeNode(Node<E> target) {
 		// ADD CODE HERE to disconnect target from the linked list, reduce lent, clean target...
+		DNode<E> pre = ((DNode<E>)target).getPrev();
+		DNode<E> post = ((DNode<E>)target).getNext();
+		
+		pre.setNext(post);
+		post.setPrev(pre);
+		
+		length--;
+
 	}
 	
 	/**
