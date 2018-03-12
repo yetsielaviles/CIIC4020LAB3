@@ -1,5 +1,7 @@
 package indexList;
 
+import java.lang.reflect.Array;
+
 import linkedLists.LinkedList;
 import linkedLists.Node;
 
@@ -120,6 +122,8 @@ public class LLIndexList<E> implements IndexList<E> {
 		ntc.setElement(e); 
 		return etr; 
 	}
+
+	
 	
 
 }

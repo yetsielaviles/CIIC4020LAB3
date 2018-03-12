@@ -1,8 +1,11 @@
 package linkedLists;
 
+import java.lang.reflect.Array;
 import java.util.NoSuchElementException;
 
-public interface LinkedList<E> {
+import indexList.IndexList;
+
+public interface LinkedList<E> extends Cloneable{
 	
 	/**
 	 * Determines the number of nodes currently in the linked list. 
@@ -80,5 +83,9 @@ public interface LinkedList<E> {
 	 * @return reference to the new node instance. 
 	 */
 	Node<E> createNewNode(); 
-
+	  
+	Object[] toArray(); 
+	<T> T[] toArray(T[] array);
+	
+	
 }

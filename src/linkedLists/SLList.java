@@ -3,7 +3,10 @@
  */
 package linkedLists;
 
+import java.lang.reflect.Array;
 import java.util.NoSuchElementException;
+
+import indexList.IndexList;
 
 /**
  * @author pirvos
@@ -181,4 +184,30 @@ public class SLList<E> extends AbstractSLList<E> {
 		return new SNode<E>();
 	}
 
+	@Override
+	public Object[] toArray() {
+		Object[] array = new Object[this.length()]; 
+		for (int i=0; i < this.length(); i++) {
+			array[i] = ((IndexList<E>) this).get(i);
+		}
+		return array;
+	}
+
+	@Override
+	public <T> T[] toArray(T[] array) {
+		if (array.length < this.length()) { 
+			array = (T[]) Array.newInstance(array.getClass().getComponentType(), this.length());
+		} 
+		else if (array.length > this.length()){
+			for (int j= this.length(); j< array.length; j++){
+				array[j] = null;
+			}
+		}
+		for (int i=0; i < this.length(); i++) {
+			array[i] = (T) ((IndexList<E>) this).get(i) ;
+		}
+		return array;	
+	}
+
+	
 }

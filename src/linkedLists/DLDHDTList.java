@@ -1,6 +1,9 @@
 package linkedLists;
 
+import java.lang.reflect.Array;
 import java.util.NoSuchElementException;
+
+import indexList.IndexList;
 
 public class DLDHDTList<E> extends AbstractDLList<E> {
 	private DNode<E> header, trailer; 
@@ -8,9 +11,11 @@ public class DLDHDTList<E> extends AbstractDLList<E> {
 	
 	public DLDHDTList() { 
 		// ADD CODE HERE to generate empty linked list of this type 
-		header = new DNode<E>(null, null, null);
-		trailer = new DNode<E>(null, header, null);
+		header = new DNode<E>();
+		trailer = new DNode<E>();
 		header.setNext(trailer);
+		trailer.setPrev(header);
+		length =0;
 	}
 	
 	public void addFirstNode(Node<E> nuevo) {
@@ -97,6 +102,7 @@ public class DLDHDTList<E> extends AbstractDLList<E> {
 		
 		pre.setNext(post);
 		post.setPrev(pre);
+		target = null;
 		
 		length--;
 
@@ -133,6 +139,31 @@ public class DLDHDTList<E> extends AbstractDLList<E> {
 	    } finally {
 	        super.finalize();
 	    }
+	}
+
+	@Override
+	public Object[] toArray() {
+		Object[] array = new Object[this.length()]; 
+		for (int i=0; i < this.length(); i++) {
+			array[i] = ((IndexList<E>) this).get(i);
+		}
+		return array;
+	}
+
+	@Override
+	public <T> T[] toArray(T[] array) {
+		if (array.length < this.length()) { 
+			array = (T[]) Array.newInstance(array.getClass().getComponentType(), this.length());
+		} 
+		else if (array.length > this.length()){
+			for (int j= this.length(); j< array.length; j++){
+				array[j] = null;
+			}
+		}
+		for (int i=0; i < this.length(); i++) {
+			array[i] = (T) ((IndexList<E>) this).get(i) ;
+		}
+		return array;	
 	}
 
 }
